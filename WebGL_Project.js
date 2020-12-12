@@ -64,7 +64,7 @@ var elapsedTime = 0;
 
 var frameCount = 0;
 
-var lastfpsTime = new Date().getTime();;
+var lastfpsTime = new Date().getTime();
 
 
 function countFrames() {
@@ -124,7 +124,7 @@ function initBuffers( model ) {
 	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(model.colors), gl.STATIC_DRAW);
 	triangleVertexColorBuffer.itemSize = 3;
-	triangleVertexColorBuffer.numItems = colors.length / 3;	
+	triangleVertexColorBuffer.numItems = model.colors.length / 3;	
 	
 	// Vertex Normal Vectors
 		
