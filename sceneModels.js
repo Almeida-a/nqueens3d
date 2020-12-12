@@ -224,6 +224,55 @@ function sphereModel( subdivisionDepth = 2 ) {
 	return sphere;
 }
 
+function boardModel(N) {
+
+	var z0, y0,
+		offset, odd;
+	
+	var board = new emptyModelFeatures();
+	
+	square = [
+			0, 0, 0,
+			0, 1, 0,
+			0, 1, 1,
+			0, 0, 0,
+			0, 1, 1,
+			0, 0, 1
+	];
+
+	if(N % 2 == 0) {
+
+		odd = 0;
+		offset = 0;
+
+
+	} else {
+		
+		odd = 1;
+		offset = -0.5;
+
+	}
+
+	z0 = y0 = range(-N/2, N/2 - 1 + odd);
+
+	var x = 0;
+
+	for(z in z0){
+		for(y in y0){
+			for(var i = 0; i < 6; i++){
+				board.vertices.push(square[i*3] + x);
+				board.vertices.push(square[i*3 + 1] + y + offset);
+				board.vertices.push(square[i*3 + 2] + z + offset);
+			}
+		}
+	}
+
+	computeVertexNormals(board.vertices, board.normals);
+
+	return board;
+
+}
+
 
 //----------------------------------------------------------------------------
 //
@@ -232,47 +281,15 @@ function sphereModel( subdivisionDepth = 2 ) {
 
 var sceneModels = [];
 
-// Model 0 --- Top Left
-
-sceneModels.push( new singleTriangleModel() );
-
-sceneModels[0].tx = -0.5; sceneModels[0].ty = 0.5;
-
-sceneModels[0].sx = sceneModels[0].sy = sceneModels[0].sz = 0.5;
-
-// Model 1 --- Top Right
+// Model 1 --- Piece (old code TODO change)
 
 sceneModels.push( new simpleCubeModel() );
 
-sceneModels[1].tx = 0.5; sceneModels[1].ty = 0.5;
+sceneModels[0].sx = 0.1; sceneModels[0].sy = 0.75; sceneModels[0].sz = 0.1;
 
-sceneModels[1].sx = sceneModels[1].sy = sceneModels[1].sz = 0.25;
+// Model 2 --- Board (old code TODO change)
 
-// Model 2 --- Bottom Right
+//sceneModels.push( new boardModel( 4 ) );
 
-sceneModels.push( new tetrahedronModel( 1 ) );
-
-sceneModels[2].tx = 0.5; sceneModels[2].ty = -0.5;
-
-sceneModels[2].sx = sceneModels[2].sy = sceneModels[2].sz = 0.25;
-
-// Model 3 --- Bottom Left
-
-sceneModels.push( new cubeModel( 1 ) );
-
-sceneModels[3].tx = -0.5; sceneModels[3].ty = -0.5;
-
-sceneModels[3].sx = 0.4; sceneModels[3].sy = sceneModels[3].sz = 0.25;
-
-// Model 4 --- Middle
-
-sceneModels.push( new simpleCubeModel() );
-
-sceneModels[4].sx = 0.1; sceneModels[4].sy = 0.75; sceneModels[4].sz = 0.1;
-
-// Model 5 --- Middle
-
-sceneModels.push( new sphereModel( 3 ) );
-
-sceneModels[5].sx = 0.25; sceneModels[5].sy = 0.25; sceneModels[5].sz = 0.25;
+//sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.25; sceneModels[1].sz = 0.25;
 
