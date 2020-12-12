@@ -1,0 +1,13 @@
+//////////////////////////////////////////////////////////////////////////////
+//
+//  Utility functions
+//
+//  André Almeida - December 2020
+//
+//////////////////////////////////////////////////////////////////////////////
+
+// from https://dev.to/ycmjason/how-to-create-range-in-javascript-539i
+function range(start, end) {
+    if(start === end) return [start];
+    return [start, ...range(start + 1, end)];
+}
