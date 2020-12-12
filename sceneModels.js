@@ -10,9 +10,15 @@
 
 //----------------------------------------------------------------------------
 //
-//  Constructors
+// Global Variables
 //
 
+var N = 4; // Length of the board side
+
+//----------------------------------------------------------------------------
+//
+//  Constructors
+//
 
 function emptyModelFeatures() {
 
@@ -21,6 +27,8 @@ function emptyModelFeatures() {
 	this.vertices = [];
 
 	this.normals = [];
+
+	this.colors = [];
 
 	// Transformation parameters
 
@@ -50,11 +58,11 @@ function emptyModelFeatures() {
 	
 	// Animation controls
 	
-	this.rotXXOn = true;
+	this.rotXXOn = false;
 	
-	this.rotYYOn = true;
+	this.rotYYOn = false;
 	
-	this.rotZZOn = true;
+	this.rotZZOn = false;
 	
 	this.rotXXSpeed = 1.0;
 	
@@ -224,27 +232,26 @@ function sphereModel( subdivisionDepth = 2 ) {
 	return sphere;
 }
 
-function boardModel(N) {
+function boardModel() {
 
-	var z0, y0,
+	var x0, y0,
 		offset, odd;
 	
 	var board = new emptyModelFeatures();
 	
 	square = [
 			0, 0, 0,
-			0, 1, 0,
-			0, 1, 1,
+			1, 0, 0,
+			1, 1, 0,
 			0, 0, 0,
-			0, 1, 1,
-			0, 0, 1
+			1, 1, 0,
+			0, 1, 0
 	];
 
 	if(N % 2 == 0) {
 
 		odd = 0;
 		offset = 0;
-
 
 	} else {
 		
@@ -253,16 +260,32 @@ function boardModel(N) {
 
 	}
 
-	z0 = y0 = range(-N/2, N/2 - 1 + odd);
+	var twoColors = [
+		[0, 0, 0], // Black - Later to be programmable
+		[1, 1, 1]  // White - Later to be programmable
+	], colorIndex = 0;
 
-	var x = 0;
+	half = Math.floor(N/2);
+	x0 = y0 = range(-half, half - 1 + odd);
 
-	for(z in z0){
-		for(y in y0){
+	var z = 0;
+
+	for(var ix = 0; ix < x0.length; ix++){
+		for(var iy = 0; iy < y0.length; iy++){
+
+			// Switch color
+			colorIndex = + !colorIndex;
+			
+			// For each square
 			for(var i = 0; i < 6; i++){
-				board.vertices.push(square[i*3] + x);
-				board.vertices.push(square[i*3 + 1] + y + offset);
-				board.vertices.push(square[i*3 + 2] + z + offset);
+				
+				board.vertices.push(square[i*3] 	+ x0[ix] + offset);
+				board.vertices.push(square[i*3 + 1] + y0[iy] + offset);
+				board.vertices.push(square[i*3 + 2] + z);
+
+				board.colors.push(twoColors[colorIndex][0],
+									twoColors[colorIndex][1],
+									twoColors[colorIndex][2]);
 			}
 		}
 	}
@@ -283,13 +306,13 @@ var sceneModels = [];
 
 // Model 1 --- Piece (old code TODO change)
 
-sceneModels.push( new simpleCubeModel() );
+//sceneModels.push( new simpleCubeModel() );
 
-sceneModels[0].sx = 0.1; sceneModels[0].sy = 0.75; sceneModels[0].sz = 0.1;
+//sceneModels[0].sx = 0.1; sceneModels[0].sy = 0.75; sceneModels[0].sz = 0.1;
 
-// Model 2 --- Board (old code TODO change)
+// Model 2 --- Board
 
-//sceneModels.push( new boardModel( 4 ) );
+sceneModels.push( new boardModel() );
 
-//sceneModels[1].sx = 0.25; sceneModels[1].sy = 0.25; sceneModels[1].sz = 0.25;
+sceneModels[0].sx = 0.25; sceneModels[0].sy = 0.25; sceneModels[0].sz = 0.25;
 
