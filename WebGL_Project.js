@@ -8,7 +8,7 @@
 //
 //  J. Madeira - November 2017 + November 2018
 //
-//André Almeida 2020
+//	Adapted by André Almeida 2020
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -117,6 +117,14 @@ function initBuffers( model ) {
 	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 
 			triangleVertexPositionBuffer.itemSize, 
 			gl.FLOAT, false, 0, 0);
+
+	// Colors
+	
+	triangleVertexColorBuffer = gl.createBuffer();
+	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(model.colors), gl.STATIC_DRAW);
+	triangleVertexColorBuffer.itemSize = 3;
+	triangleVertexColorBuffer.numItems = colors.length / 3;	
 	
 	// Vertex Normal Vectors
 		
