@@ -438,7 +438,7 @@ function outputInfos(){
 //----------------------------------------------------------------------------
 
 function setEventListeners(){
-	
+
     // Dropdown list
 	
 	var projection = document.getElementById("projection-selection");
@@ -483,6 +483,15 @@ function setEventListeners(){
 	});      
 
 	// Button events
+
+	// Algorithm related buttons
+
+	document.getElementById("runAlg").onclick = function() {
+		// Results currently tested on console
+		runAlgorithm(5);
+	}
+
+	// Base template buttons
 	
 	document.getElementById("XX-on-off-button").onclick = function(){
 		
