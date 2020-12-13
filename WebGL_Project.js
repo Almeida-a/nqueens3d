@@ -117,14 +117,6 @@ function initBuffers( model ) {
 	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, 
 			triangleVertexPositionBuffer.itemSize, 
 			gl.FLOAT, false, 0, 0);
-
-	// Colors
-	
-	triangleVertexColorBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(model.colors), gl.STATIC_DRAW);
-	triangleVertexColorBuffer.itemSize = 3;
-	triangleVertexColorBuffer.numItems = model.colors.length / 3;	
 	
 	// Vertex Normal Vectors
 		
