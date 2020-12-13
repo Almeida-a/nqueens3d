@@ -189,7 +189,7 @@ function singleTriangleModel( ) {
 	return triangle;
 }
 
-function tile( x, y, z, themeKey ) {
+function tile( x, y, z, rgb ) {
 	
 	var tile = new emptyModelFeatures();
 	
@@ -208,22 +208,29 @@ function tile( x, y, z, themeKey ) {
 	];
 
 	// Don't know how this works yet, might need ajustments later, TODO check
-	triangle.normals = [
+	tile.normals = [
 
-		// FRONTAL TRIANGLE
+		// FRONTAL Lower TRIANGLE
 		 
 		 0.0,  0.0,  1.0,
 		 
+		 0.0,  0.0,  1.0,
+		 
+		 0.0,  0.0,  1.0,
+
+		 // FRONTAL Upper TRIANGLE
+	
+		 0.0,  0.0,  1.0,
+
 		 0.0,  0.0,  1.0,
 		 
 		 0.0,  0.0,  1.0,
 	];
 
-	tile.kAmbi = themes[themeKey]["kAmbi"];
-	tile.kSpec = themes[themeKey]["kSpec"];
-	tile.kDiff = themes[themeKey]["kDiff"];
-	tile.nPhong = themes[themeKey]["nPhong"];
-	
+	// Color
+	tile.kAmbi = [1.0, 0.0, 0.0];
+	tile.kSpec = [1.0, 0.0, 0.0];
+	tile.kDiff = rgb; // Green Blue
 
 	return tile;
 }
@@ -341,7 +348,7 @@ function sphereModel( subdivisionDepth = 2 ) {
 	return sphere;
 }
 
-function boardModel(themeKey) {
+function boardModel() {
 
 	var x0, y0,
 		offset, odd;
@@ -375,8 +382,8 @@ function boardModel(themeKey) {
 	var themeIndex = 0;
 
 	var twoThemes = [
-		 "latao", // Bright (Latão) - Later to be programmable
-		 "cobre" // Dark (Cobre) - Later to be programmable
+		 [1.0, 1.0, 1.0], // Bright - Later to be programmable
+		 [0.0, 0.0, 0.0]  //   Dark - Later to be programmable
 		];
 
 	half = Math.floor(N/2);
@@ -403,18 +410,10 @@ function boardModel(themeKey) {
 		}
 	}
 
-	console.log(board.kAmb);
-
-	if(themeKey!=""){
-		board.kAmbi = themes[themeKey].kAmbi;
-		board.kSpec = themes[themeKey].kSpec;
-		board.kDiff = themes[themeKey].kDiff;
-		board.nPhong = themes[themeKey].nPhong;
-	} else {
-		board.kAmbi = [1.0, 0.0, 0.0];
-		board.kSpec = [0.0, 1.0, 0.0];
-		board.kDiff = [0.0, 1.0, 1.0];
-	}
+	// Color
+	board.kAmbi = [1.0, 0.0, 0.0];
+	board.kSpec = [1.0, 0.0, 0.0];
+	board.kDiff = [0.0, 1.0, 1.0]; // Green Blue
 
 	computeVertexNormals(board.vertices, board.normals);
 
@@ -422,50 +421,63 @@ function boardModel(themeKey) {
 
 }
 
-function queenModel( ) {
+function queenModel( row, column ) {
 	
-	var queen = new emptyModelFeatures();
-	
-	queen.vertices = [
+	var queen = new emptyModelFeatures(),
+	x = row 	- N/2,
+	y = column 	- N/2,
+	z = 0, height = 2;
 
-		-1.000000, -1.000000,  1.000000, 
-		 1.000000,  1.000000,  1.000000, 
-		-1.000000,  1.000000,  1.000000, 
-		-1.000000, -1.000000,  1.000000,
-		 1.000000, -1.000000,  1.000000, 
-		 1.000000,  1.000000,  1.000000, 
-         1.000000, -1.000000,  1.000000, 
-		 1.000000, -1.000000, -1.000000, 
-		 1.000000,  1.000000, -1.000000, 
-         1.000000, -1.000000,  1.000000, 
-         1.000000,  1.000000, -1.000000, 
-         1.000000,  1.000000,  1.000000, 
-        -1.000000, -1.000000, -1.000000, 
-        -1.000000,  1.000000, -1.000000,
-         1.000000,  1.000000, -1.000000, 
-        -1.000000, -1.000000, -1.000000, 
-         1.000000,  1.000000, -1.000000, 
-         1.000000, -1.000000, -1.000000, 
-        -1.000000, -1.000000, -1.000000, 
-		-1.000000, -1.000000,  1.000000, 
-		-1.000000,  1.000000, -1.000000, 
-		-1.000000, -1.000000,  1.000000, 
-		-1.000000,  1.000000,  1.000000, 
-		-1.000000,  1.000000, -1.000000, 
-		-1.000000,  1.000000, -1.000000, 
-		-1.000000,  1.000000,  1.000000, 
-		 1.000000,  1.000000, -1.000000, 
-		-1.000000,  1.000000,  1.000000, 
-		 1.000000,  1.000000,  1.000000, 
-		 1.000000,  1.000000, -1.000000, 
-		-1.000000, -1.000000,  1.000000, 
-		-1.000000, -1.000000, -1.000000,
-		 1.000000, -1.000000, -1.000000, 
-		-1.000000, -1.000000,  1.000000, 
-		 1.000000, -1.000000, -1.000000, 
-		 1.000000, -1.000000,  1.000000, 	 
+	queen.vertices = [ // CCW
+		// Bottom face
+		x		, y,	   z,
+		x		, y + 1  , z,
+		x  + 1  , y, 	   z,
+		x  + 1  , y + 1  , z,
+		x  + 1  , y 	 , z,
+		x  		, y + 1  , z,
+
+		// Front face
+		x       , y,       z + height,
+		x       , y,       z,
+		x + 1   , y,       z,
+		x       , y,       z + height,
+		x + 1   , y,       z,
+		x + 1   , y,       z + height,
+
+		// Back face
+		x + 0   , y + 1,   z + height,
+		x + 1   , y + 1,   z + 0,
+		x + 0   , y + 1,   z + 0,
+		x + 0   , y + 1,   z + height,
+		x + 1   , y + 1,   z + height,
+		x + 1   , y + 1,   z + 0,
+
+		// Left face
+		x + 0   , y + 1,   z + height,
+		x + 0   , y + 1,   z + 0,
+		x + 0   , y + 0,   z + height,
+		x + 0   , y + 0,   z + height,
+		x + 0   , y + 1,   z + 0,
+		x + 0   , y + 0,   z + 0,
+
+		// Right face
+		x + 1   , y + 1,   z + height,
+		x + 1   , y + 0,   z + height,
+		x + 1   , y + 0,   z + 0,
+		x + 1   , y + 1,   z + height,
+		x + 1   , y + 0,   z + 0,
+		x + 1   , y + 1,   z + 0,
+
+		// Top face
+		x		, y,	   z + height,
+		x  + 1  , y, 	   z + height,
+		x		, y + 1  , z + height,
+		x  + 1  , y + 1  , z + height,
+		x  		, y + 1  , z + height,
+		x  + 1  , y 	 , z + height,
 	];
-
+	
 	computeVertexNormals( queen.vertices, queen.normals );
 
 	return queen;
@@ -478,27 +490,19 @@ function queenModel( ) {
 
 var sceneModels = [];
 
-// Model 0 --- Piece (old code TODO change)
+// Model 1 --- Board
 
-// sceneModels.push( new simpleCubeModel() );
+sceneModels.push( new boardModel() );
 
-// sceneModels[0].sx = 0.1; sceneModels[0].sy = 0.75; sceneModels[0].sz = 0.1;
+sceneModels[0].sx = 0.25; sceneModels[0].sy = 0.25; sceneModels[0].sz = 0.25;
 
-// Model 1 --- Board1
+// Model 2 --- Queen
 
-sceneModels.push( new boardModel("cromio") );
+for(var i = 0; i < N; i++) {
+	sceneModels.push( new queenModel(4, 4) );
+	sceneModels[i+1].sx = 0.25; sceneModels[i+1].sy = 0.25; sceneModels[i+1].sz = 0.25;
+}
 
-sceneModels[0].sx = 0.12; sceneModels[0].sy = 0.12; sceneModels[0].sz = 0.12;
-
-sceneModels[0].tx = -0.5;
-
-// Model 2 --- Board2
-
-sceneModels.push( new boardModel("") );
-
-sceneModels[1].sx = 0.12; sceneModels[1].sy = 0.12; sceneModels[1].sz = 0.12;
-
-sceneModels[1].tx = 0.5;
 
 
 
