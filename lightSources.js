@@ -194,4 +194,16 @@ lightSources[1].switchRotYYOn();
 
 lightSources[1].setRotationSpeed( -0.5 );
 
+// Light source ambient
 
+lightSources[0].switchOff();
+
+lightSources[1].switchOff();
+
+lightSources.push( new LightSource() );
+
+lightSources[2].setPosition( 10.0, 10.0, 10.0, 1.0 );
+
+lightSources[2].setIntensity( 1.0, 1.0, 1.0 );
+
+lightSources[2].setAmbIntensity( 1.0, 1.0, 1.0 );
