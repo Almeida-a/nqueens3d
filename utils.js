@@ -12,33 +12,6 @@ function range(start, end) {
     return [start, ...range(start + 1, end)];
 }
 
-function zip2(arr1, arr2){
-    
-    var arr12 = [arr1, arr2], 
-        zipped = [],
-        length;
-
-    if (arr1.length < arr2.length) {
-        
-        length = arr1.length;
-
-    } else {
-
-        length = arr2.length;
-
-    }
-
-    for(var i = 0; i < length; i++){
-        zipped.push([
-            arr12[0][i],
-            arr12[1][i]]
-            );
-    }
-
-    return zipped;
-
-}
-
 // // from https://www.tutorialspoint.com/how-to-read-and-write-a-file-using-javascript
 // function readFile(fileName) {
 
