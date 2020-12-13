@@ -1,5 +1,30 @@
 
-var n = 5;
+function zip2(arr1, arr2){
+    
+    var arr12 = [arr1, arr2], 
+        zipped = [],
+        length;
+
+    if (arr1.length < arr2.length) {
+        
+        length = arr1.length;
+
+    } else {
+
+        length = arr2.length;
+
+    }
+
+    for(var i = 0; i < length; i++){
+        zipped.push([
+            arr12[0][i],
+            arr12[1][i]]
+            );
+    }
+
+    return zipped;
+
+}
 
 function isSafe(board, row, col) {
     n = board.length;
@@ -22,7 +47,7 @@ function isSafe(board, row, col) {
         range_col.push(i);
     }
 
-    zipped = zip2(range_col, range_col);
+    zipped = zip2(range_row, range_col);
     for (i = 0; i < zipped.length; i++ ) {
         if(board[zipped[i][0]][zipped[i][1]] == 1) {
             return false;
@@ -35,7 +60,7 @@ function isSafe(board, row, col) {
         range_row.push(i);
     }
 
-    zipped = zip2(range_col, range_col);
+    zipped = zip2(range_row, range_col);
     for (i = 0; i < zipped.length; i++ ) {
         if(board[zipped[i][0]][zipped[i][1]] == 1) {
             return false;
@@ -111,15 +136,16 @@ function runAlgorithm(n){
         board.push(new Array(n).fill(0));
     }
 
-    if (!solve_nq_util(board, 0)) {
+    if (!solveNQUtil(board, 0)) {
         console.log("Solution does not exist");
         return false;
     }
 
-    printSolution(board);
+    // printSolution(board);
     return true;
 }
 
 // # This code is contributed by Divyanshu Mehta
-// # Original code from https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
-// # Adapted by André Almeida
+// # Original py code from https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
+// # Adapted to js by André Almeida
+runAlgorithm(4);
