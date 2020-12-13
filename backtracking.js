@@ -30,7 +30,7 @@ function isSafe(board, row, col) {
     n = board.length;
 
     // Check this row on left side
-    for(var i = 0; i < col.length ; i++){
+    for(var i = 0; i < col ; i++){
         if(board[row][i] == 1){
             return false;
         }
@@ -84,7 +84,7 @@ function solveNQUtil(board, col) {
 
     // Consider this column and try placing
     // this queen in all rows one by one
-    for(i = 0; i < n; i++){
+    for(var i = 0; i < n; i++){
 
         if( isSafe(board, i, col)){
 
