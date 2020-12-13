@@ -27,47 +27,26 @@ function zip2(arr1, arr2){
 }
 
 function isSafe(board, row, col) {
-    n = board.length;
-
-    // Check this row on left side
-    for(var i = 0; i < col ; i++){
-        if(board[row][i] == 1){
-            return false;
-        }
-    }
-
-    // Check upper diagonal on left side
-    range_row = [];
-    for( i = row-1 ; i >= 0 ; i--) {
-        range_row.push(i);
-    }
     
-    range_col = [];
-    for( i = col-1 ; i >= 0 ; i--) {
-        range_col.push(i);
-    }
+    var i, j, n = board.length; 
 
-    zipped = zip2(range_row, range_col);
-    for (i = 0; i < zipped.length; i++ ) {
-        if(board[zipped[i][0]][zipped[i][1]] == 1) {
-            return false;
-        }
-    }
+    /* Check this row on left side */
+    for (i = 0; i < col; i++) 
+        if (board[row][i] == 1) 
+            return false; 
 
-    // Check lower diagonal on left side
-    range_row = [];
-    for( i = row ; i < n ; i++) {
-        range_row.push(i);
-    }
+    /* Check upper diagonal on left side */
+    for (i = row, j = col; i >= 0 && j >= 0; i--, j--) 
+        if (board[i][j] == 1) 
+            return false; 
 
-    zipped = zip2(range_row, range_col);
-    for (i = 0; i < zipped.length; i++ ) {
-        if(board[zipped[i][0]][zipped[i][1]] == 1) {
-            return false;
-        }
-    }
+    /* Check lower diagonal on left side */
+    for (i = row, j = col; j >= 0 && i < n; i++, j--) 
+        if (board[i][j] == 1) 
+            return false; 
 
-    return true;
+    return true; 
+    
 }
 
 
@@ -146,6 +125,6 @@ function runAlgorithm(n){
 }
 
 // # This code is contributed by Divyanshu Mehta
-// # Original py code from https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
+// # Original code from https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
 // # Adapted to js by André Almeida
 runAlgorithm(4);
