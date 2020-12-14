@@ -31,7 +31,7 @@ function getPositionsFromBoardMatrix(board) {
     return posList;
 }
 
-function proceedOrders(boards, i) {
+function proceedOrders(boards, i) {// TODO continue testing this function
 
 		previousSet = getPositionsFromBoardMatrix(boards[i]);
 		nextSet = getPositionsFromBoardMatrix(boards[i + 1]);
