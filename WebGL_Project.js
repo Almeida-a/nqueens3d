@@ -496,7 +496,7 @@ function setEventListeners(){
 		
 		boardSetCount += 1;
 
-		var orders = proceedOrders(boardSetCount),
+		var orders = proceedOrders(boards, boardSetCount),
 			flags = orders[0],
 			row = orders[1][0],
 			col = orders[1][1],

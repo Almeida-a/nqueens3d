@@ -31,7 +31,7 @@ function getPositionsFromBoardMatrix(board) {
     return posList;
 }
 
-function proceedOrders(i) {
+function proceedOrders(boards, i) {
 
 		previousSet = getPositionsFromBoardMatrix(boards[i]);
 		nextSet = getPositionsFromBoardMatrix(boards[i + 1]);
@@ -75,6 +75,143 @@ function proceedOrders(i) {
 
 }
 
+// Testing lines:
+// var boards = [
+//     [
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//     ],
+//     [
+//       [
+//         1,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//     ],
+//     [
+//       [
+//         1,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         1,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//     ],
+//     [
+//       [
+//         1,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         1,
+//         0,
+//         0,
+//       ],
+//     ],
+//     [
+//       [
+//         1,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         1,
+//         0,
+//       ],
+//       [
+//         0,
+//         0,
+//         0,
+//         0,
+//       ],
+//       [
+//         0,
+//         1,
+//         0,
+//         0,
+//       ],
+//     ],
+//   ];
+
+// for(var i = 0; i < 4; i++) {
+//     proceedOrders(i);
+// }
 // Obsolete functions:
 
 // // from https://www.tutorialspoint.com/how-to-read-and-write-a-file-using-javascript
