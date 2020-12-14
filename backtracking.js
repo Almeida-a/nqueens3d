@@ -1,5 +1,5 @@
 
-var boards = [], boardSetCount = 0;
+var N = 4,  boards = [], boardSetCount = 0;
 
 function arrayDeepCopy(arr){
 
@@ -127,4 +127,4 @@ function runAlgorithm(n){
 // # Adapted to js by André Almeida
 
 // Decomment next lines when debugging
-// runAlgorithm(4);
+runAlgorithm(N);
