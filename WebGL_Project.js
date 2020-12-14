@@ -484,12 +484,59 @@ function setEventListeners(){
 
 	// Button events
 
+	// Ilumination related buttons
+
+	document.getElementById("addLight").onclick = function() {
+		console.log("Woah, such empty");
+	};
+
 	// Algorithm related buttons
 
-	document.getElementById("runAlg").onclick = function() {
-		// Results currently tested on console
-		runAlgorithm(5);
-	}
+	document.getElementById("nextMove").onclick = function() {
+		
+		boardSetCount += 1;
+
+		var orders = proceedOrders(boardSetCount),
+			flags = orders[0],
+			row = orders[1][0],
+			col = orders[1][1],
+			nPops = orders[2],
+			pacesUp = orders[3];
+
+		console.log("Thank you, next");
+
+		// Three paths:
+		
+		if(flags[0]) {// put another queen
+
+			console.log("Case 1");
+			console.log("row = "+row+" column = "+col);
+			sceneModels.push(new queenModel(row, col));
+			sceneModels[sceneModels.length - 1].sx = 0.25;
+			sceneModels[sceneModels.length - 1].sy = 0.25;
+			sceneModels[sceneModels.length - 1].sz = 0.25;
+
+		} else if(flags[1]) {// change a queen
+
+			console.log("Case 2");
+			console.log(pacesUp);
+			sceneModels[sceneModels.length-1].ty += pacesUp * 0.25;
+
+		} else if (flags[2]) {// delete N queens
+
+			console.log("Case 3");
+			console.log(nPops);
+			for(var i = 0 ; i < nPops; i++) {
+				sceneModels.pop();
+			}
+
+		} else {
+
+			console.log("Error!");
+
+		}
+
+	};
 
 	// Base template buttons
 	
