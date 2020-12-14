@@ -494,8 +494,6 @@ function setEventListeners(){
 
 	document.getElementById("nextMove").onclick = function() {
 		
-		boardSetCount += 1;
-
 		var orders = proceedOrders(boards, boardSetCount),
 			flags = orders[0],
 			row = orders[1][0],
@@ -535,6 +533,9 @@ function setEventListeners(){
 			console.log("Error!");
 
 		}
+
+		// One step
+		boardSetCount += 1;
 
 	};
 
