@@ -13,7 +13,7 @@
 // Global Variables
 //
 
-var N = 5,  themes = {
+var themes = {
 	"bronze":{
 		"kAmbi":[0.21, 0.13, 0.05],
 		"kDiff":[0.71, 0.43, 0.18],
