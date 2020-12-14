@@ -13,6 +13,9 @@ function range(start, end) {
 }
 
 function getPositionsFromBoardMatrix(board) {
+
+  // Return list of queens' positions [row, column] by order of incremental queen's column
+  // e.g. 1st queen is the one on column 0, 2st queen is the one on column 1, ...
     
     var posList = [];
 
@@ -22,8 +25,8 @@ function getPositionsFromBoardMatrix(board) {
             console.assert(board.length == board[i].length, "Board is not squared!!");
 
             // Add [row, column] of squares that should have a queen
-            if (board[i][j] == 1){
-                posList.push([i, j]);
+            if (board[j][i] == 1){
+                posList.push([j, i]);
             }
         }
     }
