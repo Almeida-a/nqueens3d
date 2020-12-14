@@ -58,8 +58,8 @@ function proceedOrders(boards, i) {// TODO continue testing this function
         {
             flags[1] = true;
 
-            // pacesUp
-            orders[2] = nextSet[nextSet.length-1][0] - previousSet[previousSet.length-1][1];
+            // pacesDown
+            orders[2] = previousSet[previousSet.length-1][0] - nextSet[nextSet.length-1][0];
         }
         else
         {
