@@ -1,4 +1,25 @@
 
+var boards = [];
+
+function arrayDeepCopy(arr){
+
+    if(Array.isArray(arr)){
+
+        var clone = [];
+
+        for (var i = 0; i < arr.length; i++){
+
+            clone.push(arrayDeepCopy(arr[i]));
+
+        }
+
+        return clone;
+    }
+
+    return arr;
+
+}
+
 function isSafe(board, row, col) {
     
     var i, j, n = board.length; 
@@ -28,6 +49,9 @@ function solveNQUtil(board, col) {
     // then return true
 
     n = board.length;
+
+    // Save board
+    boards.push(arrayDeepCopy(board));
 
     if (col >= n)
     {
