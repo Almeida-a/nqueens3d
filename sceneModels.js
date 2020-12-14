@@ -498,9 +498,18 @@ sceneModels[0].sx = 0.25; sceneModels[0].sy = 0.25; sceneModels[0].sz = 0.25;
 
 // Model 2 --- Queen
 
-for(var i = 0; i < N; i++) {
-	sceneModels.push( new queenModel(4, 4) );
-	sceneModels[i+1].sx = 0.25; sceneModels[i+1].sy = 0.25; sceneModels[i+1].sz = 0.25;
+var board = runAlgorithm(N),
+	positions = getPositionsFromBoardMatrix(board);
+
+if(board != null) {
+	for(var i = 0; i < N; i++) {
+		sceneModels.push( new queenModel(
+			positions[i][0],
+			positions[i][1]
+			) );
+			
+		sceneModels[i+1].sx = 0.25; sceneModels[i+1].sy = 0.25; sceneModels[i+1].sz = 0.25;
+	}
 }
 
 
