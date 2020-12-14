@@ -12,6 +12,29 @@ function range(start, end) {
     return [start, ...range(start + 1, end)];
 }
 
+function getPositionsFromBoardMatrix(board) {
+    
+    var posList = [];
+
+    for(var i = 0 ; i < board.length ; i++){
+        for(var j = 0; j < board[i].length; j++){
+
+            console.assert(board.length == board[i].length, "Board is not squared!!");
+
+            // Add [row, column] of squares that should have a queen
+            if (board[i][j] == 1){
+                posList.push([i, j]);
+            }
+        }
+    }
+
+    return posList;
+}
+
+
+
+// Obsolete functions:
+
 // // from https://www.tutorialspoint.com/how-to-read-and-write-a-file-using-javascript
 // function readFile(fileName) {
 
@@ -36,9 +59,4 @@ function range(start, end) {
 //         });
 
 //     });
-// }
-
-// function getPositions() {
-//     // TODO return set of positions for each queen
-//     var fileContent = readFile();
 // }
