@@ -498,8 +498,8 @@ function setEventListeners(){
 			flags = orders[0],
 			row = orders[1][0],
 			col = orders[1][1],
-			nPops = orders[2],
-			pacesUp = orders[3];
+			pacesDown = orders[2],
+			nPops = orders[3];
 
 		console.log("Thank you, next");
 
@@ -517,8 +517,8 @@ function setEventListeners(){
 		} else if(flags[1]) {// change a queen
 
 			console.log("Case 2");
-			console.log(pacesUp);
-			sceneModels[sceneModels.length-1].ty += pacesUp * 0.25;
+			console.log(pacesDown);
+			sceneModels[sceneModels.length-1].ty += pacesDown * 0.25;
 
 		} else if (flags[2]) {// delete N queens
 
