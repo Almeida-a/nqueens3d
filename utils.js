@@ -31,7 +31,49 @@ function getPositionsFromBoardMatrix(board) {
     return posList;
 }
 
+function proceedOrders(i) {
 
+		previousSet = getPositionsFromBoardMatrix(boards[i]);
+		nextSet = getPositionsFromBoardMatrix(boards[i + 1]);
+
+        // Condition decision making
+        var orders = [null, [], null, null];
+		var flags = [
+						false,	// add
+						false,	// pop
+						false 	// same
+					];
+
+        if(previousSet.length < nextSet.length)
+        {
+            // Add a piece
+            flags[0] = true;
+
+            // Row
+            orders[1].push(nextSet[nextSet.length-1][0]);
+            // Column
+            orders[1].push(nextSet[nextSet.length-1][1]);
+        }
+        else if(previousSet.length == nextSet.length)
+        {
+            flags[1] = true;
+
+            // pacesUp
+            orders[2] = nextSet[nextSet.length-1][0] - previousSet[previousSet.length-1][1];
+        }
+        else
+        {
+            flags[2] = true;
+
+            // nPops
+            orders[3] = previousSet.length - nextSet.length;
+        }
+
+        orders[0] = flags;
+            
+        return orders;
+
+}
 
 // Obsolete functions:
 
