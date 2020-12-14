@@ -424,8 +424,8 @@ function boardModel() {
 function queenModel( row, column ) {
 	
 	var queen = new emptyModelFeatures(),
-	x = row 	- N/2,
-	y = column 	- N/2,
+	x = column  - N/2,
+	y = -(row 	- N/2 + 1),
 	z = 0, height = 2;
 
 	queen.vertices = [ // CCW
