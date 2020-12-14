@@ -84,20 +84,23 @@ function runAlgorithm(n){
 
     board = [];
 
+    // Creating the matrix
     for(var i = 0; i < n; i++){
         board.push(new Array(n).fill(0));
     }
 
     if (!solveNQUtil(board, 0)) {
         console.log("Solution does not exist");
-        return false;
+        return null;
     }
 
     // printSolution(board);
-    return true;
+    return board;
 }
 
 // # This code is contributed by Divyanshu Mehta
 // # Original code from https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
 // # Adapted to js by André Almeida
-runAlgorithm(4);
+
+// Decomment next lines when debugging
+// runAlgorithm(4);
