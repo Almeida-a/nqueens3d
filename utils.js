@@ -69,7 +69,12 @@ function proceedOrders(boards, i) {// TODO continue testing this function
             flags[2] = true;
 
             // nPops
-            orders[3] = previousSet.length - nextSet.length;
+            orders[3] = previousSet.length - nextSet.length + 1;
+
+            // Row
+            orders[1].push(nextSet[nextSet.length-1][0]);
+            // Column
+            orders[1].push(nextSet[nextSet.length-1][1]);
         }
 
         orders[0] = flags;
