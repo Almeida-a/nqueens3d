@@ -496,22 +496,19 @@ sceneModels.push( new boardModel() );
 
 sceneModels[0].sx = 0.25; sceneModels[0].sy = 0.25; sceneModels[0].sz = 0.25;
 
-// Model 2 --- Queen
+// Model 2 --- Queens
 
-var board = runAlgorithm(N),
-	positions = getPositionsFromBoardMatrix(board);
+var boardSetCount = 0;
 
-if(board != null) {
-	for(var i = 0; i < N; i++) {
-		sceneModels.push( new queenModel(
-			positions[i][0],
-			positions[i][1]
-			) );
+// 	positions = getPositionsFromBoardMatrix(board);
+
+// if(board != null) {
+// 	for(var i = 0; i < N; i++) {
+// 		sceneModels.push( new queenModel(
+// 			positions[i][0],
+// 			positions[i][1]
+// 			) );
 			
-		sceneModels[i+1].sx = 0.25; sceneModels[i+1].sy = 0.25; sceneModels[i+1].sz = 0.25;
-	}
-}
-
-
-
-
+// 		sceneModels[i+1].sx = 0.25; sceneModels[i+1].sy = 0.25; sceneModels[i+1].sz = 0.25;
+// 	}
+// }
