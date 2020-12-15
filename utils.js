@@ -59,6 +59,7 @@ function proceedOrders(boards, i) {// TODO continue testing this function
         }
         else if(previousSet.length == nextSet.length)
         {
+            // Change last queen's positions
             flags[1] = true;
 
             // pacesDown
