@@ -36,8 +36,8 @@ function getPositionsFromBoardMatrix(board) {
 
 function proceedOrders(boards, i) {// TODO continue testing this function
 
-		previousSet = getPositionsFromBoardMatrix(boards[i]);
-		nextSet = getPositionsFromBoardMatrix(boards[i + 1]);
+		previousSet = getPositionsFromBoardMatrix(boards[i % boards.length]);
+		nextSet = getPositionsFromBoardMatrix(boards[(i + 1) % boards.length]);
 
         // Condition decision making
         var orders = [null, [], null, null];
@@ -64,17 +64,28 @@ function proceedOrders(boards, i) {// TODO continue testing this function
             // pacesDown
             orders[2] = previousSet[previousSet.length-1][0] - nextSet[nextSet.length-1][0];
         }
-        else
+        else if(previousSet.length > nextSet.length)
         {
             flags[2] = true;
 
-            // nPops
-            orders[3] = previousSet.length - nextSet.length + 1;
+            if(nextSet.length != 0)
+            {
 
-            // Row
-            orders[1].push(nextSet[nextSet.length-1][0]);
-            // Column
-            orders[1].push(nextSet[nextSet.length-1][1]);
+                flags[0] = true; // Add as well
+                // nPops
+                orders[3] = previousSet.length - nextSet.length + 1;
+                
+                // Row
+                orders[1].push(nextSet[nextSet.length-1][0]);
+                // Column
+                orders[1].push(nextSet[nextSet.length-1][1]);
+
+            } else {
+
+                orders[3] = previousSet.length;
+
+            }
+
         }
 
         orders[0] = flags;

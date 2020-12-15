@@ -505,7 +505,7 @@ function setEventListeners(){
 
 		// Three paths:
 		
-		if(flags[0]) {// put another queen
+		if(flags[0] && !flags[2]) {// put another queen
 
 			sceneModels.push(new queenModel(row, col));
 			sceneModels[sceneModels.length - 1].sx = 0.25;
@@ -518,18 +518,22 @@ function setEventListeners(){
 			console.log(pacesDown);
 			sceneModels[sceneModels.length-1].ty += pacesDown * 0.25;
 
-		} else if (flags[2]) {// delete N queens and put new one
+		} else if (flags[2]) {// delete N queens and put new one or go back to first
 
 			console.log("Case 3");
 			console.log(nPops);
 			for(var i = 0 ; i < nPops; i++) {
 				sceneModels.pop();
 			}
+
+			if(flags[0]) {//Also add
 			
-			sceneModels.push(new queenModel(row, col));
-			sceneModels[sceneModels.length - 1].sx = 0.25;
-			sceneModels[sceneModels.length - 1].sy = 0.25;
-			sceneModels[sceneModels.length - 1].sz = 0.25;
+				sceneModels.push(new queenModel(row, col));
+				sceneModels[sceneModels.length - 1].sx = 0.25;
+				sceneModels[sceneModels.length - 1].sy = 0.25;
+				sceneModels[sceneModels.length - 1].sz = 0.25;
+				
+			}
 
 		} else {
 
