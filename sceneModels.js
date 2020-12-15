@@ -480,6 +480,12 @@ function queenModel( row, column ) {
 	
 	computeVertexNormals( queen.vertices, queen.normals );
 
+	// Queen size
+	queen.sx = 0.25;
+	queen.sy = 0.25;
+	queen.sz = 0.25;
+
+
 	return queen;
 }
 
