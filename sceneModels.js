@@ -413,7 +413,11 @@ function boardModel() {
 	// Color
 	board.kAmbi = [1.0, 0.0, 0.0];
 	board.kSpec = [1.0, 0.0, 0.0];
-	board.kDiff = [0.0, 1.0, 1.0]; // Green Blue
+	board.kDiff = [0.5, 0.5, 0.5]; // Grey
+
+	board.sx = 0.25;
+	board.sy = 0.25;
+	board.sz = 0.25;
 
 	computeVertexNormals(board.vertices, board.normals);
 
@@ -480,10 +484,32 @@ function queenModel( row, column ) {
 	
 	computeVertexNormals( queen.vertices, queen.normals );
 
+	// Set queen's color as brown (maroon)
+	queen.kDiff = [139/255, 69/255, 19/255];
+
 	// Queen size
 	queen.sx = 0.25;
 	queen.sy = 0.25;
 	queen.sz = 0.25;
+
+	console.assert(sceneModels[0] != null);
+	// Queen rotation properties (equals board's)
+	// angle
+	queen.rotAngleXX = sceneModels[0].rotAngleXX;
+	queen.rotAngleYY = sceneModels[0].rotAngleYY;
+	queen.rotAngleZZ = sceneModels[0].rotAngleZZ;
+	// direction
+	queen.rotXXDir = sceneModels[0].rotXXDir;
+	queen.rotYYDir = sceneModels[0].rotYYDir;
+	queen.rotZZDir = sceneModels[0].rotZZDir;
+	// on/off
+	queen.rotXXOn = sceneModels[0].rotXXOn;
+	queen.rotYYOn = sceneModels[0].rotYYOn;
+	queen.rotZZOn = sceneModels[0].rotZZOn;
+	// speed
+	queen.rotXXSpeed = sceneModels[0].rotXXSpeed;
+	queen.rotYYSpeed = sceneModels[0].rotYYSpeed;
+	queen.rotZZSpeed = sceneModels[0].rotZZSpeed;
 
 
 	return queen;
@@ -505,16 +531,3 @@ sceneModels[0].sx = 0.25; sceneModels[0].sy = 0.25; sceneModels[0].sz = 0.25;
 // Model 2 --- Queens
 
 var boardSetCount = 0;
-
-// 	positions = getPositionsFromBoardMatrix(board);
-
-// if(board != null) {
-// 	for(var i = 0; i < N; i++) {
-// 		sceneModels.push( new queenModel(
-// 			positions[i][0],
-// 			positions[i][1]
-// 			) );
-			
-// 		sceneModels[i+1].sx = 0.25; sceneModels[i+1].sy = 0.25; sceneModels[i+1].sz = 0.25;
-// 	}
-// }
