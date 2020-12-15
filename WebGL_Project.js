@@ -508,9 +508,6 @@ function setEventListeners(){
 		if(flags[0] && !flags[2]) {// put another queen
 
 			sceneModels.push(new queenModel(row, col));
-			sceneModels[sceneModels.length - 1].sx = 0.25;
-			sceneModels[sceneModels.length - 1].sy = 0.25;
-			sceneModels[sceneModels.length - 1].sz = 0.25;
 
 		} else if(flags[1]) {// change a queen
 
@@ -529,10 +526,7 @@ function setEventListeners(){
 			if(flags[0]) {//Also add
 			
 				sceneModels.push(new queenModel(row, col));
-				sceneModels[sceneModels.length - 1].sx = 0.25;
-				sceneModels[sceneModels.length - 1].sy = 0.25;
-				sceneModels[sceneModels.length - 1].sz = 0.25;
-				
+
 			}
 
 		} else {
