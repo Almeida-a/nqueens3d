@@ -493,50 +493,8 @@ function setEventListeners(){
 	// Algorithm related buttons
 
 	document.getElementById("nextMove").onclick = function() {
-		
-		var orders = proceedOrders(boards, boardSetCount),
-			flags = orders[0],
-			row = orders[1][0],
-			col = orders[1][1],
-			pacesDown = orders[2],
-			nPops = orders[3];
 
-		console.log("Thank you, next");
-
-		// Three paths:
-		
-		if(flags[0] && !flags[2]) {// put another queen
-
-			sceneModels.push(new queenModel(row, col));
-
-		} else if(flags[1]) {// change a queen
-
-			console.log("Case 2");
-			console.log(pacesDown);
-			sceneModels[sceneModels.length-1].ty += pacesDown * 0.25;
-
-		} else if (flags[2]) {// delete N queens and put new one or go back to first
-
-			console.log("Case 3");
-			console.log(nPops);
-			for(var i = 0 ; i < nPops; i++) {
-				sceneModels.pop();
-			}
-
-			if(flags[0]) {//Also add
-			
-				sceneModels.push(new queenModel(row, col));
-
-			}
-
-		} else {
-
-			console.log("Error!");
-
-		}
-
-		// One step
-		boardSetCount += 1;
+		move(+1);
 
 	};
 
