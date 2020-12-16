@@ -95,30 +95,40 @@ function proceedOrders(boards, i) {// TODO continue testing this function
 
 }
 
-// Obsolete functions:
+function move(plus) {
+    
+    var orders = proceedOrders(boards, boardSetCount),
+    flags = orders[0],
+    row = orders[1][0],
+    col = orders[1][1],
+    pacesDown = orders[2],
+    nPops = orders[3];
 
-// // from https://www.tutorialspoint.com/how-to-read-and-write-a-file-using-javascript
-// function readFile(fileName) {
+    // Three paths:
 
-//     var fs = require("fs");
-//     console.log("Going to write into existing file");
+    if(flags[0] && !flags[2]) {// put another queen
 
-//     // Open a new file with name input.txt and write Simply Easy Learning! to it.
-//     fs.writeFile(fileName, 'Simply Easy Learning!', function(err) {
+        sceneModels.push(new queenModel(row, col));
 
-//         if (err) {
-//             return console.error(err);
-//         }
-//         console.log("Data written successfully!");
-//         console.log("Let's read newly written data");
+    } else if(flags[1]) {// change a queen
 
-//         // Read the newly written file and print all of its content on the console
-//         fs.readFile(fileName, function (err, data) {
-//             if (err) {
-//                 return console.error(err);
-//             }
-//             console.log("Asynchronous read: " + data.toString());
-//         });
+        sceneModels[sceneModels.length-1].ty += pacesDown * 0.25;
 
-//     });
-// }
+    } else if (flags[2]) {// delete N queens and put new one or go back to empty
+
+        for(var i = 0 ; i < nPops; i++) {
+            sceneModels.pop();
+        }
+
+        if(flags[0]) {//Also add
+            sceneModels.push(new queenModel(row, col));
+        }
+
+    } else {
+        console.log("Error!");
+    }
+
+    // One step
+    boardSetCount += 1;
+
+}
