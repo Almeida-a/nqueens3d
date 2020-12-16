@@ -490,7 +490,18 @@ function setEventListeners(){
 		console.log("Woah, such empty");
 	};
 
-	// Algorithm related buttons
+	// Algorithm related events
+
+	document.getElementById("reload").onclick = function() {
+		var n = document.getElementById("size").value;
+		n = parseInt(n);
+
+		console.assert(
+			typeof(n)=="number" && n>0, "Is not a positive number!"
+			);
+
+		refresh(n);
+	};
 
 	document.getElementById("nextMove").onclick = function() {
 

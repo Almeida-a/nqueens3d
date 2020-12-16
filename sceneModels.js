@@ -564,12 +564,12 @@ function boardBottomModel() {
 
 var sceneModels = [];
 
-// Model 1 --- Board
+// Model --- Board
 
 sceneModels.push( new boardModel() );
 
 sceneModels.push( new boardBottomModel() );
 
-// Model 2 --- Queens
+// Position of board
 
 var boardSetCount = 0;

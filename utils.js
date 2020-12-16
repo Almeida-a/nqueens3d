@@ -36,37 +36,37 @@ function getPositionsFromBoardMatrix(board) {
 
 function proceedOrders(boards, step) {
 
-        var i = boardSetCount % boards.length,
-            nextStep = (i + step) % boards.length;
+    var i = boardSetCount % boards.length,
+        nextStep = (i + step) % boards.length;
 
-        if(i < 0) {
-            i = (i + boards.length) % boards.length;
+    if(i < 0) {
+        i = (i + boards.length) % boards.length;
+    }
+    if( nextStep < 0 ){// Work as python's array indexing (arr[-1] = arr[size - 1])
+        nextStep = (nextStep + boards.length) % boards.length;
+    }
+    
+    previousSet = getPositionsFromBoardMatrix(boards[i]);
+    nextSet = getPositionsFromBoardMatrix(boards[nextStep]);
+
+    var orders = [[], 0];
+
+    // Check how many positions lost a queen
+    for(i = 0; i < previousSet.length; i++){
+        if(previousSet[i] != nextSet[i]){
+            // this and all next queens are to be removed
+            orders[1] = previousSet.length - i;
+            break;
         }
-        if( nextStep < 0 ){// Work as python's array indexing (arr[-1] = arr[size - 1])
-            nextStep = (nextStep + boards.length) % boards.length;
-        }
+    }
+
+    // Start adding from the last break point
+    var start = previousSet.length - orders[1]; // same as j = i
+    for(i = start; i < nextSet.length; i++) {
+        orders[0].push(nextSet[i]); // Add a position
+    }
         
-		previousSet = getPositionsFromBoardMatrix(boards[i]);
-		nextSet = getPositionsFromBoardMatrix(boards[nextStep]);
-
-        var orders = [[], 0];
-
-        // Check how many positions lost a queen
-        for(i = 0; i < previousSet.length; i++){
-            if(previousSet[i] != nextSet[i]){
-                // this and all next queens are to be removed
-                orders[1] = previousSet.length - i;
-                break;
-            }
-        }
-
-        // Start adding from the last break point
-        var start = previousSet.length - orders[1]; // same as j = i
-        for(i = start; i < nextSet.length; i++) {
-            orders[0].push(nextSet[i]); // Add a position
-        }
-            
-        return orders;
+    return orders;
 
 }
 
@@ -89,5 +89,22 @@ function move(step) {
 
     // One step
     boardSetCount += step;
+
+}
+
+function refresh(n) {
+    sceneModels.length = 0;
+    N = n;
+    
+    // Recreate the models
+    sceneModels.push(new boardModel());
+    sceneModels.push(new boardBottomModel());
+    boardSetCount = 0;
+
+    // Reset the algorithm positions
+    boards.length = 0;
+
+    // Rerun the algorithm
+    runAlgorithm(n);
 
 }

@@ -1,5 +1,5 @@
 
-var N = 4,  boards = [], boardSetCount = 0;
+var N = 6,  boards = [], boardSetCount = 0;
 
 function arrayDeepCopy(arr){
 
