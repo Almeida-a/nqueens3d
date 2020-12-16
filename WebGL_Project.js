@@ -498,6 +498,12 @@ function setEventListeners(){
 
 	};
 
+	document.getElementById("previousMove").onclick = function() {
+
+		move(-1);
+
+	};
+
 	// Base template buttons
 	
 	document.getElementById("XX-on-off-button").onclick = function(){
