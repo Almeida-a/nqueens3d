@@ -415,6 +415,7 @@ function boardModel() {
 	board.kSpec = [1.0, 0.0, 0.0];
 	board.kDiff = [0.5, 0.5, 0.5]; // Grey
 
+	// Setting board size
 	board.sx = 0.25;
 	board.sy = 0.25;
 	board.sz = 0.25;
@@ -515,6 +516,47 @@ function queenModel( row, column ) {
 	return queen;
 }
 
+function boardBottomModel() {
+
+	console.assert(sceneModels.length != 0);
+
+	var base = new emptyModelFeatures();
+
+	// Four points:
+	// a = N/2
+	// ({+,-}a, {+,-}a, 0) (p1, p2, p3, p4)
+	// p1 = (+a, +a, 0)
+	// p2 = (+a, -a, 0)
+	// p4 = (-a, -a, 0)
+	// p3 = (-a, +a, 0)
+	// CW
+	// (p1, p2, p4), (p1, p4, p3)
+
+	var a = N/2;
+
+	base.vertices = [
+		// 
+		 a,  a, 0,
+		 a, -a, 0,
+		-a, -a, 0,
+		//
+		 a,  a, 0,
+		-a, -a, 0,
+		-a,  a, 0
+	];
+
+	base.kDiff = [1.0, 0.0, 0.0]; // red
+
+	base.sx = 0.25;
+	base.sy = 0.25;
+	base.sz = 0.25;
+
+	computeVertexNormals(base.vertices, base.normals);
+
+	return base;
+
+}
+
 //----------------------------------------------------------------------------
 //
 //  Instantiating scene models
@@ -526,7 +568,7 @@ var sceneModels = [];
 
 sceneModels.push( new boardModel() );
 
-sceneModels[0].sx = 0.25; sceneModels[0].sy = 0.25; sceneModels[0].sz = 0.25;
+sceneModels.push( new boardBottomModel() );
 
 // Model 2 --- Queens
 
