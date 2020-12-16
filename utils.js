@@ -34,101 +34,60 @@ function getPositionsFromBoardMatrix(board) {
     return posList;
 }
 
-function proceedOrders(boards, i) {// TODO continue testing this function
+function proceedOrders(boards, step) {
 
-		previousSet = getPositionsFromBoardMatrix(boards[i % boards.length]);
-		nextSet = getPositionsFromBoardMatrix(boards[(i + 1) % boards.length]);
+        var i = boardSetCount % boards.length,
+            nextStep = (i + step) % boards.length;
 
-        // Condition decision making
-        var orders = [null, [], null, null];
-		var flags = [
-						false,	// add
-						false,	// pop
-						false 	// same
-					];
-
-        if(previousSet.length < nextSet.length)
-        {
-            // Add a piece
-            flags[0] = true;
-
-            // Row
-            orders[1].push(nextSet[nextSet.length-1][0]);
-            // Column
-            orders[1].push(nextSet[nextSet.length-1][1]);
+        if(i < 0) {
+            i = (i + boards.length) % boards.length;
         }
-        else if(previousSet.length == nextSet.length)
-        {
-            // Change last queen's positions
-            flags[1] = true;
-
-            // pacesDown
-            orders[2] = previousSet[previousSet.length-1][0] - nextSet[nextSet.length-1][0];
+        if( nextStep < 0 ){// Work as python's array indexing (arr[-1] = arr[size - 1])
+            nextStep = (nextStep + boards.length) % boards.length;
         }
-        else if(previousSet.length > nextSet.length)
-        {
-            flags[2] = true;
+        
+		previousSet = getPositionsFromBoardMatrix(boards[i]);
+		nextSet = getPositionsFromBoardMatrix(boards[nextStep]);
 
-            if(nextSet.length != 0)
-            {
+        var orders = [[], 0];
 
-                flags[0] = true; // Add as well
-                // nPops
-                orders[3] = previousSet.length - nextSet.length + 1;
-                
-                // Row
-                orders[1].push(nextSet[nextSet.length-1][0]);
-                // Column
-                orders[1].push(nextSet[nextSet.length-1][1]);
-
-            } else {
-
-                orders[3] = previousSet.length;
-
+        // Check how many positions lost a queen
+        for(i = 0; i < previousSet.length; i++){
+            if(previousSet[i] != nextSet[i]){
+                // this and all next queens are to be removed
+                orders[1] = previousSet.length - i;
+                break;
             }
-
         }
 
-        orders[0] = flags;
+        // Start adding from the last break point
+        var start = previousSet.length - orders[1]; // same as j = i
+        for(i = start; i < nextSet.length; i++) {
+            orders[0].push(nextSet[i]); // Add a position
+        }
             
         return orders;
 
 }
 
-function move(plus) {
+function move(step) {
     
-    var orders = proceedOrders(boards, boardSetCount),
-    flags = orders[0],
-    row = orders[1][0],
-    col = orders[1][1],
-    pacesDown = orders[2],
-    nPops = orders[3];
+    var orders = proceedOrders(boards, step),
+    rowcols = orders[0], // new position [row1, col1], [row2, col2], [row3, col3], [rowN, colN]...
+    nPops = orders[1];   // Number of pops
+    
+    for(var i = 0 ; i < nPops; i++) {
+        sceneModels.pop();
+    }
 
-    // Three paths:
-
-    if(flags[0] && !flags[2]) {// put another queen
-
-        sceneModels.push(new queenModel(row, col));
-
-    } else if(flags[1]) {// change a queen
-
-        sceneModels[sceneModels.length-1].ty += pacesDown * 0.25;
-
-    } else if (flags[2]) {// delete N queens and put new one or go back to empty
-
-        for(var i = 0 ; i < nPops; i++) {
-            sceneModels.pop();
-        }
-
-        if(flags[0]) {//Also add
-            sceneModels.push(new queenModel(row, col));
-        }
-
-    } else {
-        console.log("Error!");
+    for(i = 0; i < rowcols.length; i++) {//Also add
+        sceneModels.push(new queenModel(
+            rowcols[i][0],//new queen's row
+            rowcols[i][1] //new queen's column
+            ));
     }
 
     // One step
-    boardSetCount += 1;
+    boardSetCount += step;
 
 }
